@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  dg-mysql:
+    image: mariadb:10.3
+    container_name: dg-mysql-mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      # - container-volume:/var/lib/mysql
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: mytestdb
+
+  # Админка по адресу http://localhost:8765
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dg-phpmyadmin
+    links: 
+      - dg-mysql:db
+    depends_on:
+      - dg-mysql
+    ports:
+      - 8765:80
+    environment:
+      PMA_HOST: dg-mysql
+      PMA_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+

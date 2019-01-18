@@ -1,0 +1,15 @@
+{
+  "name": "MySQL-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":"docker-compose up -d --build && docker-compose logs -f",
+    "restart":"npm run stop && npm run start",
+    "stop":"docker-compose down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
